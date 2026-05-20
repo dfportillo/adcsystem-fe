@@ -1,0 +1,136 @@
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import type { UserRegistrationForm } from "../../../../tracepulse-fe/src/types";
+import ErrorMessage from "../../../../tracepulse-fe/src/components/ErrorMessage";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { UserService, type UserRegistrationRequest } from "../../../../tracepulse-fe/src/api/generated";
+
+export default function RegisterView() {
+
+    const initialValues: UserRegistrationRequest = {
+        username:'',
+        password: '',
+        password_confirmation:''
+    }
+
+    const { register, handleSubmit,reset,watch, formState: { errors } } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
+
+    const password = watch('password');
+
+    const {mutate} = useMutation({
+        mutationFn:UserService.userAuthRegisterCreate,
+        onError:(error) => {
+            toast.error(error.message)
+        },
+        onSuccess:(data) => {
+            toast.success(data.message)
+            reset()
+        }
+    })
+
+    const handleRegister = (formData: UserRegistrationForm) => {
+        mutate(formData)
+    }
+
+    return (
+        <>
+            <h1 className="text-5xl font-black text-white">Registrate</h1>
+            <p className="text-2xl font-light text-white mt-5">
+                Llena el formulario para {''}
+                <span className=" text-red-500 font-bold"> registrarte con nosotros</span>
+            </p>
+
+            <form
+                onSubmit={handleSubmit(handleRegister)}
+                className="space-y-8 p-10  bg-white mt-10"
+                noValidate
+            >
+                <div className="flex flex-col gap-5">
+                    <label
+                        className="font-normal text-2xl"
+                    >Nombre de usuario</label>
+                    <input
+                        type="name"
+                        placeholder="nombre de usuario tracepulse"
+                        className="w-full p-3  border-gray-300 border"
+                        {...register("username", {
+                            required: "El Nombre de usuario es obligatorio",
+                            pattern: {
+                                value: /^[a-zA-Z0-9@\.\+\-_]+$/,
+                                message: "debe tener un minimo de 150 caracteres, solo letras, dígitos y los símbolos @, ., +, -, y _.",
+                            }
+                        })}
+                    />
+                    {errors.username && (
+                        <ErrorMessage>{errors.username.message}</ErrorMessage>
+                    )}
+                </div>
+
+                <div className="flex flex-col gap-5">
+                    <label
+                        className="font-normal text-2xl"
+                    >Password</label>
+
+                    <input
+                        type="password"
+                        placeholder="Password de Registro"
+                        className="w-full p-3  border-gray-300 border"
+                        {...register("password", {
+                            required: "El Password es obligatorio",
+                            minLength: {
+                                value: 8,
+                                message: 'El Password debe ser mínimo de 8 caracteres'
+                            }
+                        })}
+                    />
+                    {errors.password && (
+                        <ErrorMessage>{errors.password.message}</ErrorMessage>
+                    )}
+                </div>
+
+                <div className="flex flex-col gap-5">
+                    <label
+                        className="font-normal text-2xl"
+                    >Repetir Password</label>
+
+                    <input
+                        id="password_confirmation"
+                        type="password"
+                        placeholder="Repite Password de Registro"
+                        className="w-full p-3  border-gray-300 border"
+                        {...register("password_confirmation", {
+                            required: "Repetir Password es obligatorio",
+                            validate: value => value === password || 'Los Passwords no son iguales'
+                        })}
+                    />
+
+                    {errors.password_confirmation && (
+                        <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
+                    )}
+                </div>
+
+                <input
+                    type="submit"
+                    value='Registrarme'
+                    className="bg-red-600 hover:bg-red-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
+                />
+            </form>
+            <nav className=" mt-5 flex flex-col space-y-4" >
+                <Link
+                    to={'/'}
+                    className=" text-center text-gray-500 font-normal text-lg"
+                >
+                    ¿Tienes cuenta? <span className=" text-red-500"> Inicia sesion </span>
+                </Link>
+
+                <Link
+                    to={'/auth/forgot-password'}
+                    className=" text-center text-gray-500 font-normal text-lg"
+                >
+                    ¿Olvidaste tu contraseña? <span className=" text-red-500"> Haz click aqui</span>
+                </Link>
+            </nav>
+        </>
+    )
+}
