@@ -1,36 +1,25 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import type { UserRegistrationForm } from "../../../../tracepulse-fe/src/types";
-import ErrorMessage from "../../../../tracepulse-fe/src/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { UserService, type UserRegistrationRequest } from "../../../../tracepulse-fe/src/api/generated";
+import ErrorMessage from "../../components/ErrorMessage";
 
 export default function RegisterView() {
 
-    const initialValues: UserRegistrationRequest = {
+    const initialValues = {
         username:'',
         password: '',
         password_confirmation:''
     }
 
-    const { register, handleSubmit,reset,watch, formState: { errors } } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
+    const { register, handleSubmit,reset,watch, formState: { errors } } = useForm({ defaultValues: initialValues });
 
     const password = watch('password');
 
-    const {mutate} = useMutation({
-        mutationFn:UserService.userAuthRegisterCreate,
-        onError:(error) => {
-            toast.error(error.message)
-        },
-        onSuccess:(data) => {
-            toast.success(data.message)
-            reset()
-        }
-    })
+    
 
-    const handleRegister = (formData: UserRegistrationForm) => {
-        mutate(formData)
+    const handleRegister = (formData:any) => {
+        console.log(formData)
     }
 
     return (

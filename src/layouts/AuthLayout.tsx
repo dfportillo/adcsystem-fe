@@ -1,6 +1,6 @@
+import Logo from "#components/Logo";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
-import Logo from "../../../tracepulse-fe/src/components/Logo";
 
 export default function AuthLayout() {
   return (

@@ -1,16 +1,16 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios'
 
-export const axiosInstance = axios.create({
+export const customInstace = axios.create({
     baseURL:'http://admin.localhost:8000',
     withCredentials:true
 })
-
-axiosInstance.interceptors.request.use((config:InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('token')
-
+export const customAxios = async <T>(config:InternalAxiosRequestConfig|any):Promise<T> => {
+    const token = localStorage.getItem('access')
     if(token){
-        config.headers.Authorization = `Bearer ${token}`
+        config.headers.Authorization = `Bearer ${token}`;
     }
 
-    return config
-})
+    const res = await customInstace(config);
+
+    return res.data
+}

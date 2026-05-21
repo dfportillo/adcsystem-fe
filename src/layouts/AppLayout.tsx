@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
-import { useAuth } from "../../../tracepulse-fe/src/contexts/AuthContext";
-import { useProfile } from "../../../tracepulse-fe/src/hooks/useProfile";
-import SideBar from "../../../tracepulse-fe/src/components/frontComponents/SideBar";
 import { useState } from "react";
-import UserDropDown from "@/components/frontComponents/UserDropDown";
+import UserDropDown from "../components/frontComponents/UserDropDown";
+import SideBar from "#components/frontComponents/SideBar";
+import { useProfile } from "#hooks/api/Auth/useProfile";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function AppLayout() {
   // apertura/cierre sidebar
@@ -29,7 +29,7 @@ export default function AppLayout() {
     return <div>Cargando datos de usuario...</div>; // crear una forma mas amigable de ver que esta cargando los datos del usuario
   }
 
-  if (isAuthenticated)
+  // if (isAuthenticated)
     return (
       <>
         <main className={`${containerClasses}`}>

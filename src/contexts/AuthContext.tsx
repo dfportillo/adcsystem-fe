@@ -1,15 +1,16 @@
 import {
-    createContext,
-    useContext,
-    useMemo,
-    useState,
-    type ReactNode,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+  type ReactNode,
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { UserService, type UserListRequest } from "../api/generated";
+import type { User, UserLoginRespose } from "../api/model";
+import { getUser } from "../api/endpoints/user/user";
 
-const USER_STORAGE_KEY = "tracepulse_user";
+const USER_STORAGE_KEY = `user_system`;
 
 const getUserFromStorage = () => {
   const userJson = localStorage.getItem(USER_STORAGE_KEY);
@@ -18,11 +19,11 @@ const getUserFromStorage = () => {
 };
 
 export interface AuthContextI {
-  user: ;
-  isAuthenticated: ;
-  role: ;
-  login: ;
-  logout: ;
+  user: User | null | undefined;
+  isAuthenticated: boolean;
+  // role: number|null|undefined;
+  login: (data: UserLoginRespose) => void;
+  logout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextI | null>(null);
@@ -32,44 +33,41 @@ interface AuthContextProviderProps {
 }
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
-  const [user, setUser] = useState<UserListRequest | null>(getUserFromStorage);
-
+  const [user, setUser] = useState<User | null | undefined>(getUserFromStorage);
+  const userApi = getUser();
   const navigate = useNavigate();
 
   const isAuthenticated = !!user;
 
   // funcion 1 Login: recibe el objeto "user" del backend (desde onSucces de useMutation)
 
-  const login = () => {
-    // setUser();
-    // localStorage.setItem(USER_STORAGE_KEY, JSON.stringify());
+  const login = (data: UserLoginRespose) => {
+    setUser(data);
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(data));
   };
 
   // funcion2: logout limpia la sesion local y redirige
 
   const queryClient = useQueryClient();
 
-  // const { mutate: logoutMutate } = useMutation({
-  //   mutationFn: UserService.userAuthLogoutCreate,
-  //   onError: (error) => {
-  //     console.log(error.message)
-  //   },
-  //   onSuccess: (data) => {
-  //     toast.success(data);
-  //     queryClient.invalidateQueries({
-  //       queryKey: ["profile"],
-  //     });
-  //   },
-  // });
+  const { mutate: logoutMutate } = useMutation({
+    mutationFn: userApi.userLogoutCreate,
+    onError: (error) => {
+      console.log(error.message);
+      setUser(null)
+      localStorage.removeItem(USER_STORAGE_KEY)
+      navigate('/auth/login')
+    },
+    onSuccess: () => {
+      setUser(null)
+      localStorage.removeItem(USER_STORAGE_KEY)
+      queryClient.invalidateQueries()
+    },
+  });
 
   const logout = () => {
-    // //cuando se tenga la llamada a POST de /user/auth/logout de ser necesaria
-    // setUser(null);
-    // localStorage.removeItem(USER_STORAGE_KEY);
-    // logoutMutate();
-    // navigate("auth/login");
+    logoutMutate()
   };
-
 
   const contextValue = useMemo(
     () => ({
@@ -77,9 +75,9 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       isAuthenticated,
       login,
       logout,
-      role: user?.role,
+      // role:number,
     }),
-    [user, isAuthenticated]
+    [user, isAuthenticated],
   );
 
   return (

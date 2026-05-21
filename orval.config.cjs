@@ -1,15 +1,15 @@
 module.exports = {
   adcsystem: {
     output: {
-      mode: 'tags-split', // Te separa los archivos por entidad (Machine, Process, etc.)
+      mode: 'tags-split',
       target: './src/api/endpoints',
       schemas: './src/api/model',
-      client: 'axios', 
+      client: 'axios',
       mock: false,
       override: {
         mutator: {
           path: './src/lib/axios.ts',
-          name: 'axiosInstance',
+          name: 'customAxios',
         },
       },
     },

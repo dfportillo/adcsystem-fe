@@ -1,0 +1,28 @@
+import { useState } from "react";
+
+export function Dashboard() {
+    const [ products, setProducts ] = useState([]);
+    
+    // Cargar productos - OP
+    useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    
+    axios.get("http://127.0.0.1:8000/api/tracepulse/products/", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(res => {
+      if (res.data.length > 0) {
+        setProducts(res.data);
+      }
+    })
+    .catch(err => console.error("Error cargando OPs", err));
+    }, []);
+    
+    console.log(products);
+    
+    return(
+      <>
+          <h1> Dasboard </h1>
+      </>
+    );
+}

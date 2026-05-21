@@ -1,111 +1,566 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@custom-variant dark (&:is(.dark *));
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* barra de scroll */
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+body::-webkit-scrollbar {
+    width: 12px;
+    background: rgba(55, 55, 55, 0.2);
+    filter: blur(10px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+body::-webkit-scrollbar-thumb {
+    background: rgba(84, 84, 84, 0.5);
+    border-radius: 10px;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+/* tamaño mobile */
+/* aplicado en general  mobile first*/
+
+.Container {
+    display: grid;
+    position: relative;
+    overflow: scroll;
+    /* background-color: #1C1C1E; */
+    /* La sidebar y el contenido se apilan en móvil */
+    grid-template-areas:
+        "sidebar"
+        /* "header" */
+        "routes"
+        "footer";
+    grid-template-rows: auto 0 1fr;
+    /* Sidebar tiene altura 0 por defecto */
+    min-height: 100vh;
 }
 
-body {
-  margin: 0;
+header {
+    grid-area: header;
 }
 
+.OutletAppLayout {
+    grid-area: routes;
+    /*------- revisar ------*/
+    position: relative;
+}
+
+footer {
+    grid-area: footer;
+}
+
+.ContentSidebar {
+    grid-area: sidebar;
+
+    /* Usamos transición para un efecto de apertura suave */
+    transition: grid-template-rows 0.3s ease;
+    /*Oculta el contenido de la sidebar */
+    overflow: hidden;
+}
+
+/* Estado ACTIVO: Sidebar visible en móvil */
+
+.Container {
+    grid-template-rows: auto 300px 1fr;
+    /* Le damos una altura visible de 300px */
+}
+
+.SideBarLinksContent {
+    display: none;
+}
+
+/* ------------------------------------------------ */
+
+/* Main Elements*/
+/* MainCardElement*/
+
+.MainHomeCards {
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+    justify-content: center;
+    border: 0 solid #6b6b6b;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    border-radius: 14px;
+    overflow: hidden;
+
+    .cuadros {
+        transition: cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+        position: absolute;
+        /* su padre tiene que ser relativo para el poder ser absoluto*/
+        width: 100%;
+        height: 100%;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .svgBackgroundMainEffect {
+        /* object-fit: contain; */
+        transition: cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        bottom: -500px;
+        opacity: 1;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &:hover {
+        .cuadros {
+            transform: rotate(37deg) rotateX(5deg) rotateY(12deg) rotate(3deg) skew(2deg) skewY(1deg) scaleX(1.2) scaleY(1.2);
+        }
+
+        .svgBackgroundMainEffect {
+            bottom: -100px;
+            opacity: 1;
+        }
+    }
+}
+
+.MainCard {
+    width: 190px;
+    background: #eeecee;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 0.5vmin solid black;
+    box-shadow: 0.4rem 0.4rem black;
+    z-index: 1;
+
+    .MainCardContent {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem
+    }
+
+    .CardTitle {
+        color: black;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    .CardDescription {
+        display: flex;
+        color: #05060f;
+        line-height: 1.25;
+        font-weight: 1.8rem;
+    }
+}
+
+/* ------------------------------------------------------ */
+
+/* Menudisplay css*/
+
+.cuadros-menu {
+    /* Aquí se define la transformación compleja que Tailwind no soporta con utilidades simples */
+    transform: rotate(37deg) rotateX(5deg) rotateY(12deg) rotate(3deg) skew(2deg) skewY(1deg) scaleX(1.2) scaleY(1.2);
+    /* El resto (position, top, left, etc.) se mueve a las clases del JSX */
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+/* estilos base de la tarjeta*/
+.menu-item-complex {
+    /* Borde base transparente y transición */
+    width: 300px;
+    height: 260px;
+    border: 0.5px solid transparent;
+    transition: 0.3s;
+}
+
+/* Hover de la Tarjeta */
+.menu-item-complex:hover {
+    border: 1px solid currentColor;
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+.menu-item-complex.false:hover {
+    border: 1px solid red;
+}
+
+/* 3. Filtro Grayscale en la Imagen */
+.menuItem-image img {
+    filter: grayscale(100%);
+    transition: 0.3s;
+    height: 70%;
+    /* Altura original de la imagen */
+}
+
+.menu-item-complex:hover .menuItem-image img {
+    filter: grayscale(0);
+    /* Quita el grayscale al hacer hover */
+}
+
+/* 4. Pseudo-elementos (El efecto de Brillo) */
+
+/* Activación del Brillo */
+#MenuItems:hover>.menu-item-complex::after {
+    opacity: 1;
+}
+
+.menu-item-complex:hover::before {
+    opacity: 1;
+}
+
+/* Definiciones de los Pseudo-elementos */
+.menu-item-complex::before,
+.menu-item-complex::after {
+    border-radius: inherit;
+    content: "";
+    height: 100%;
+    left: 0px;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    transition: opacity 500ms;
+    width: 100%;
+}
+
+.menu-item-complex::before {
+    z-index: 3;
+}
+
+.menu-item-complex::after {
+    /* El radial-gradient con variables CSS es 100% CSS puro */
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.4),
+            transparent 40%);
+    z-index: 1;
+}
+
+/* 5. Estilos de Fuente Global (Si no se usan clases de Tailwind) */
 h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+h2,
+h3,
+h4,
+span {
+    font-family: "Rubik", sans-serif;
+    margin: 0px;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+/* 6. Media Queries (Moviendo los breakpoints de styled-components) */
+
+@media (max-width: 1000px) {
+
+    /* Ajuste de tarjetas a 2 columnas */
+    .menu-item-complex {
+        flex-shrink: 1;
+        width: calc(50% - 4px);
+    }
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+@media (max-width: 500px) {
+    .menu-item-complex {
+        height: 180px;
+    }
+
+    .menuItem-image {
+        height: 80px;
+    }
+
+    /* Resto de ajustes de fuente se pueden hacer con utilidades responsivas de Tailwind */
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+@media (max-width: 320px) {
+    .menu-item-complex {
+        width: 100%;
+    }
+}
+
+/* ----------------------------------------------------------- */
+
+/* telefonos grandes y tablets medianas */
+@media (min-width: 576px) and (min-width: 767.98px) {
+    .Container {
+        display: grid;
+        /* La sidebar y el contenido se apilan en móvil */
+        position: relative;
+        overflow: hidden;
+        grid-template-areas:
+            "header"
+            "sidebar"
+            "routes"
+            "footer";
+        grid-template-rows: auto 0 1fr;
+        /* Sidebar tiene altura 0 por defecto */
+        min-height: 100vh;
+    }
+
+    .Container.desktop-open {
+        /* Cuando la clase 'desktop-open' está presente, cambiamos el ancho de la primera columna. */
+        grid-template-columns: 200px 1fr;
+    }
+
+    .ContentSidebar {
+        grid-area: sidebar;
+        /* Usamos transición para un efecto de apertura suave */
+        transition: grid-template-rows 0.3s ease;
+        /*Oculta el contenido de la sidebar */
+    }
+
+    /* Estado ACTIVO: Sidebar visible en móvil */
+
+    .SideBarLinksContent {
+        display: contents;
+    }
+
+    .MenuHambur {
+        display: none;
+    }
+
+    /* MainMenu Cards tablet */
+    .MainHomeCards {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+/* tamaño tablet */
+@media (min-width: 768px) {
+
+    /* Estado por defecto: Sidebar Colapsada (65px) */
+    .Container {
+        /* Definimos las áreas del grid para que header y routes se extiendan */
+        position: relative;
+        overflow: hidden;
+        grid-template-areas:
+            "sidebar header"
+            "sidebar routes"
+            "sidebar footer";
+
+        /* Sidebar fija de 65px + contenido */
+        grid-template-columns: 65px 1fr;
+        grid-template-rows: auto 1fr;
+        /* Header en la fila superior, routes en la de abajo */
+    }
+
+    /* Mostrar la barra lateral */
+    .ContentSidebar {
+        /* Le damos altura total en tablet/desktop */
+        height: 100%;
+        grid-row: 1 / 4;
+        /* Se extiende desde la fila 1 (header) hasta el final (routes) */
+        overflow-x: hidden;
+        /* no es necesario ver el contenido completo del sideBar*/
+        transition: width 0.3s ease, min-width 0.3s ease;
+        width: 65px;
+        /* Colapsada por defecto */
+        z-index: 100;
+    }
+
+    .OpenSideBar {
+        width: 200px;
+    }
+
+    /* Icono de flecha */
+    .roteRightIcon {
+        rotate: 180deg;
+    }
+
+    /* Ocultar el botón de menú hamburguesa */
+    /* .ContentMenuambur {
+        display: none; 
+    }
+     */
+    /* El header solo ocupa el espacio sobre las rutas */
+    header {
+        grid-area: header;
+    }
+
+    footer {
+        grid-area: footer;
+    }
+
+    /* Estado condicional: Sidebar Abierta (clase .active) */
+    .Container.active {
+        /* Sidebar expandida de 220px + contenido */
+        grid-template-columns: 220px 1fr;
+    }
+
+    .MenuHambur {
+        display: none;
+    }
+
+    /* MainMenu Cards tablet */
+    .MainHomeCards {
+        flex-direction: row;
+    }
+}
+
+/* Dashboard Main*/
+
+.DashboardMain {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    /* overflow: hidden; */
+    /* background-color: chocolate; */
+    display: grid;
+    grid-template:
+        "headerMain" 100px
+        "sectionMain" auto;
+}
+
+.headerMain {
+    grid-area: headerMain;
+    /* background-color: aqua; */
+}
+
+/* .area1 {
+    grid-area: area1;
+    background-color: blue;
+}
+
+.area2 {
+    grid-area: area2;
+    background-color: blueviolet;
+} */
+
+.sectionMain {
+    grid-area: sectionMain;
+    /* background-color: cadetblue; */
+}
+
+@theme inline {
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-2xl: calc(var(--radius) + 8px);
+    --radius-3xl: calc(var(--radius) + 12px);
+    --radius-4xl: calc(var(--radius) + 16px);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
 }
