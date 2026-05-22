@@ -15,6 +15,7 @@ import type {
   UserLogin,
   UserLoginRespose,
   UserRegistration,
+  UserRegistrationRespose,
   UserRoleCreate
 } from '../../model';
 
@@ -164,7 +165,7 @@ const userMePartialUpdate = (
   const userRegisterCreate = (
     userRegistration: NonReadonly<UserRegistration>,
  ) => {
-      return customAxios<UserRegistration>(
+      return customAxios<UserRegistrationRespose>(
       {url: `/api/user/register/`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: userRegistration

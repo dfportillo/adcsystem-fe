@@ -6,6 +6,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
+import type { User } from "./user";
+import type { UserLoginRespose } from "./userLogin";
+
 export interface UserRegistration {
   readonly id: number;
   /**
@@ -20,3 +23,5 @@ export interface UserRegistration {
   password: string;
   password_confirm: string;
 }
+
+export interface UserRegistrationRespose extends Pick<User,"id"|"username"|"email">,Pick<UserLoginRespose,'tokens'> {}

@@ -20,7 +20,7 @@ export const useProfile = () => {
   if(isAxiosError(error)&&error.response){
     if(isError){
         if(error?.status === 401 || error.status ===403){
-            toast.error('el Token expirado o invado se forza cierre')
+            toast.error('el Token expirado o invalidado , se forza cierre')
             logout()
         }
     }

@@ -64,28 +64,28 @@ export type MainMenuDataTypes = {
 
 export const MainMenuData:MainMenuDataTypes[] = [
     {
-        title:'componentes',
+        title:'componentes', // se manitiene 
         subtitle:'listado de componentes disponibles',
         icon:<ComponentsIcon />,
         link:'components'
     },
     {
-        title:'maquinas',
+        title:'maquinas', // se mantiene 
         subtitle:'maquinas disponibles en plata',
         icon:<CNCIcon />,
         link:'machines'
     },
     {
-        title:'procesos',
+        title:'procesos', // se mantiene
         subtitle:'procesos disponibles en plata',
         icon:<ProcessIcon />,
         link:'process'
     },
     {
-        title:'productos',
+        title:'ordenes', // se mantiene
         subtitle:'ordenes de produccion en plata',
         icon:<PolinICon />,
-        link:'products'
+        link:'orders'
     },
     {
         title:'personal',

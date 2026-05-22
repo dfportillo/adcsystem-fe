@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { getUser } from "../../../api/endpoints/user/user";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 
 const userApi = getUser()
@@ -29,11 +30,23 @@ export const useUsers = () => {
     }
   })
 
+  const registerMutation = useMutation({
+    mutationFn:userApi.userRegisterCreate,
+    onSuccess:(data) => {
+      toast.success(`el usuario ${data.username} fue registrado exitosamente`)
+      navigate('/auth/login')
+    },
+    onError:(error) => {
+      console.error('error en la muacion de regisro',error)
+    }
+  })
+
  
 
   //----------------- return -------------------
   return{
     //-------- mutations -------------------
-    loginMutation
+    loginMutation,
+    registerMutation
   }
 };
