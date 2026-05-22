@@ -17,6 +17,6 @@ export default function PolinICon({ onClick, className }: PolinIconProps) {
             ${className || ''}`} 
         src="/polin.svg"
         onClick={onClick} 
-        alt="logo_Rivet" />
+        alt="logo_ordenes_produccion" />
     )
 }
