@@ -48,20 +48,18 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   // funcion2: logout limpia la sesion local y redirige
 
-  const queryClient = useQueryClient();
 
   const { mutate: logoutMutate } = useMutation({
     mutationFn: userApi.userLogoutCreate,
     onError: (error) => {
-      console.log(error.message);
-      setUser(null)
-      localStorage.removeItem(USER_STORAGE_KEY)
-      navigate('/auth/login')
+      console.log(error.message,'Error en Logout');
     },
     onSuccess: () => {
       setUser(null)
       localStorage.removeItem(USER_STORAGE_KEY)
-      queryClient.invalidateQueries()
+      localStorage.removeItem('access')
+      localStorage.removeItem('refresh')
+      navigate('/auth/login')
     },
   });
 

@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 //----------------------------------------------------------------------------------------
 import { getUser } from "../../../api/endpoints/user/user";
 import { useAuth } from "../../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 const userApi = getUser()
@@ -9,6 +10,7 @@ const userApi = getUser()
 
 export const useUsers = () => {
   const {login:loginContext} =useAuth()
+  const navigate = useNavigate()
 
   
 
@@ -17,9 +19,13 @@ export const useUsers = () => {
     mutationFn:userApi.userLoginCreate,
     onSuccess:(data) => {
       loginContext(data)
+      // guardar tokens
+      localStorage.setItem('refresh',data.tokens.refresh)
+      localStorage.setItem('access',data.tokens.access)
+      navigate('/')
     },
     onError:(error) => {
-      console.error('Error en la autenticacion ',error.message)
+      console.error('Error en loginMutation',error.message)
     }
   })
 

@@ -3,7 +3,6 @@ import { Toaster } from "sonner";
 import { useState } from "react";
 import UserDropDown from "../components/frontComponents/UserDropDown";
 import SideBar from "#components/frontComponents/SideBar";
-import { useProfile } from "#hooks/api/Auth/useProfile";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function AppLayout() {
@@ -16,17 +15,13 @@ export default function AppLayout() {
   const containerClasses = `Container ${sideBarOpen ? "desktop-open" : ""}`;
 
   // hook para caducidad de sesion
-  const { isLoading } = useProfile();
+  // const { isLoading } = useProfile();
 
   // hook de autenticacion
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return <Navigate to={"/auth/login"} replace />;
-  }
-
-  if (isAuthenticated && isLoading) {
-    return <div>Cargando datos de usuario...</div>; // crear una forma mas amigable de ver que esta cargando los datos del usuario
   }
 
   // if (isAuthenticated)

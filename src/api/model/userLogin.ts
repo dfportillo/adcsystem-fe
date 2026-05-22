@@ -6,7 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-import type { TokenRefresh } from "./tokenRefresh";
 import type { User } from "./user";
 
 export interface UserLogin {
@@ -14,4 +13,9 @@ export interface UserLogin {
   password: string;
 }
 
-export interface UserLoginRespose extends User,TokenRefresh {}
+export interface UserLoginRespose extends User {
+  tokens:{
+    access:string;
+    refresh:string;
+  }
+}

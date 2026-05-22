@@ -1,6 +1,6 @@
 import { useState } from "react"; // Importamos useState
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { UserLogin } from "../../api/model";
 import { useUsers } from "../../hooks/api/Auth/useUsers";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -9,7 +9,6 @@ export default function LoginView() {
   const [showPassword, setShowPassword] = useState(false); // Estado para el password
   const { loginMutation } = useUsers();
 
-  const navigate = useNavigate();
 
   const initialValues: UserLogin = {
     email: "",
@@ -23,8 +22,7 @@ export default function LoginView() {
   } = useForm({ defaultValues: initialValues });
 
   const handleLogin = (data: UserLogin) => {
-  loginMutation.mutate(data)
-   navigate('/')
+    loginMutation.mutate(data);
   };
 
   return (
