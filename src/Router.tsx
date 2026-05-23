@@ -8,6 +8,7 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 import AdcSystemDashboardView from "./views/AdcSystemDashboardView";
 import MenuView from "./views/menu/MenuView";
 import OrdersView from "./views/menu/orders/OrdersView";
+import ComponentsView from "./views/menu/components/ComponentsView";
 //------------------APP------------------------------------------------
 export default function Router() {
   return (
@@ -22,6 +23,7 @@ export default function Router() {
             <Route path="/" element={<AdcSystemDashboardView />} index />
             <Route path="/menu" element={<MenuView />}  />
             <Route path="/menu/orders" element={<OrdersView />}  />
+            <Route path="/menu/components" element={<ComponentsView />}  />
           </Route>
         </Routes>
       </AuthContextProvider>
