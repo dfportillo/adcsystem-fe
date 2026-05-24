@@ -1,4 +1,5 @@
 import OrdersCards from "#components/Orders/OrdersCards"
+import SecctionDescription from "#components/ReusableComponents/SecctionDescription"
 import SearchInput from "#components/search/SearchInput"
 import { useOrders } from "#hooks/orders/useOrders"
 import { useSearch } from "#hooks/search/useSearch"
@@ -25,6 +26,11 @@ export default function OrdersView() {
     searchItem:searchTerm
   })
 
+  const handleNewOrder = () => {
+    //TODO agregar accion de nueva orden de produccion 
+    console.log('nueva orden agregada ')
+  }
+
   return (
     <div
       className="
@@ -32,43 +38,18 @@ export default function OrdersView() {
                   sm:flex sm:justify-start sm:flex-col sm:items-baseline sm:ml-5
               "
     >
-      <div
-        role="banner"
-        className="
-                  w-[92%] lg:w-2/5 md:w-2/3
-                  bg-gray-200
-                  px-4 py-3 mx-2 my-2
-                  rounded-4xl md:rounded-4xl
-                  lg:p-4
-                  lg:m-5
-                  "
+      <SecctionDescription 
+        header={"ordenes de produccion"}
+        description="ordenes de produccion disponibles en planta"
+        buttonTag="agregar nueva orden de produccion"
+        buttonAction={handleNewOrder}
       >
-        <div className=" flex items-center gap-4">
-          <h1
-            className=" 
-                  text-xl font-black first-letter:capitalize
-                  sm:text-3xl
-                  "
-          >
-            ordenes de produccion
-          </h1>
-        </div>
-        <p className=" text-xl font-light first-letter:capitalize text-gray-500 mt-3">
-          ordenes de produccion disponibles en planta
-        </p>
-        <button
-          className=" bg-red-500 rounded-xl first-letter:capitalize hover:bg-red-600 py-2 px-2 text-white text-lg font-bold cursor-pointer transition-colors mt-2"
-          // onClick={() => handleAddNewProduct()}
-        >
-          agregar nueva orden de produccion
-        </button>
-
-        <SearchInput
+        <SearchInput 
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           placeHolder="Buscar Ordenes de produccion"
         />
-      </div>
+      </SecctionDescription>
       <section className="grid place-items-center w-full pb-3">
         <div
           className="

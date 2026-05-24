@@ -1,4 +1,5 @@
 import { ComponentsTable } from "#components/Menu/components/ComponentsTable";
+import SecctionDescription from "#components/ReusableComponents/SecctionDescription";
 import { useComponents } from "#hooks/components/useComponents";
 
 export default function ComponentsView() {
@@ -21,39 +22,14 @@ export default function ComponentsView() {
     <div
       className="
                 grid place-items-center
-                sm:flex sm:justify-start sm:flex-col sm:items-baseline
+                sm:flex sm:justify-start sm:flex-col sm:items-baseline sm:ml-5
             "
     >
-      <div
-        role="banner"
-        className="
-                w-[92%] lg:w-2/5 md:w-2/3
-                bg-gray-200
-                px-4 py-3 mx-2 my-2
-                rounded-4xl md:rounded-4xl
-                lg:p-4
-                lg:m-5
-                "
-      >
-        <h1
-          className=" 
-                text-xl font-black first-letter:capitalize
-                sm:text-3xl
-                "
-        >
-          Componentes{" "}
-        </h1>
-        <p className=" text-xl font-light first-letter:capitalize text-gray-500 mt-3">
-          un listado de los componentes disponibles en planta
-        </p>
-
-        <button
-          className=" bg-red-500 rounded-xl hover:bg-red-600 py-2 px-2 text-white text-lg font-bold cursor-pointer transition-colors mt-2"
-          onClick={() => console.log("se agrega un nuevo componente")}
-        >
-          Agregar componente
-        </button>
-      </div>
+      <SecctionDescription 
+        header="Componentes"
+        description="listado de componentes"
+        buttonTag="agregar componente"
+      />
 
       <section
         className="

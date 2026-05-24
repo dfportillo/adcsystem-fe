@@ -6,7 +6,10 @@ export default function MenuView() {
     return (
         <>
             <div
-                className="relative z-10 flex items-center justify-center bg-transparent min-h-screen h-auto scroll-container overflow-hidden"
+                className="
+                    lg:items-center
+                    relative z-10 flex items-baseline justify-center bg-transparent min-h-screen overflow-hidden pt-3
+                    "
             >
                 <svg
                     className="cuadros-menu absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
