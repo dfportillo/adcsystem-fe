@@ -1,4 +1,4 @@
-import OrdersCards from "#components/Orders/OrdersCards"
+import OrdersCards from "#components/Menu/Orders/OrdersCards"
 import SecctionDescription from "#components/ReusableComponents/SecctionDescription"
 import SearchInput from "#components/search/SearchInput"
 import { useOrders } from "#hooks/orders/useOrders"

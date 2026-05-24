@@ -1,3 +1,4 @@
+import ProductsTable from "#components/Menu/Products/ProductsTable";
 import SecctionDescription from "#components/ReusableComponents/SecctionDescription";
 import { useProducts } from "#hooks/products/useProducts"
 
@@ -16,7 +17,6 @@ export default function ProductsView() {
         Error al cargar los productos
       </p>
     );
-   console.log(productsQuery.data) 
   return (
     <div
           className="
@@ -25,9 +25,9 @@ export default function ProductsView() {
                 "
         >
           <SecctionDescription 
-            header="Componentes"
-            description="listado de componentes"
-            buttonTag="agregar componente"
+            header="Productos"
+            description="productos disponibles"
+            buttonTag="agregar un nuevo producto"
           />
     
           <section
@@ -37,7 +37,7 @@ export default function ProductsView() {
           >
             {productsList.length ? (
               // <ComponentsTable data={componentsList} />
-              <p>aqui estan los productos</p>
+              <ProductsTable data={productsList}/>
             ) : (
               <p className="text-center py-20">No hay componentes disponibles.</p>
             )}

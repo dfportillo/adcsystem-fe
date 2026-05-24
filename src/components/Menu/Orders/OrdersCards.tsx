@@ -14,7 +14,7 @@ import {
     Transition,
 } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import type { ProductionOrder } from "../../api/model";
+import type { ProductionOrder } from "../../../api/model";
 import { useProducts } from "#hooks/products/useProducts";
 
 export type OrdersCardProps = {

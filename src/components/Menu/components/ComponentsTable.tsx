@@ -1,3 +1,5 @@
+import { useState } from "react";
+//-------------------------------------------------------------------
 import {
   createColumnHelper,
   flexRender,
@@ -7,9 +9,8 @@ import {
   type RowData,
   type SortingState,
 } from "@tanstack/react-table";
-import type { Component } from "../../../api/model";
-import { useState } from "react";
 //----------------------------------------------------------------------------------------
+import type { Component } from "../../../api/model";
 
 export type ComponentsTableProps = {
   data: Component[];
@@ -23,10 +24,12 @@ declare module "@tanstack/react-table" {
 
 const columHelperComponent = createColumnHelper<Component>(); //helper para la creacion de tablas usando typescript
 const columns = [
-    columHelperComponent.accessor("name", {
-    header: () => "Nombre",
+  columHelperComponent.accessor("name", {
+    header: () => "Componente",
     cell: (info) => (
-      <span className="font-semibold text-gray-800 pl-1">{info.getValue()}</span>
+      <span className="font-semibold text-gray-800 pl-1">
+        {info.getValue()}
+      </span>
     ),
     enableSorting: true,
   }),
@@ -39,7 +42,6 @@ const columns = [
     ),
     enableSorting: true,
   }),
-  
 
   columHelperComponent.accessor("component_type_name", {
     header: () => "Comprado/Fabricado",
