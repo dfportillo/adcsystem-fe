@@ -22,18 +22,14 @@ body::-webkit-scrollbar-thumb {
 
 .Container {
     display: grid;
-    position: relative;
-    overflow: scroll;
-    /* background-color: #1C1C1E; */
-    /* La sidebar y el contenido se apilan en móvil */
+    position: absolute;
+    min-height: 100vh;
+    width: 100%;
     grid-template-areas:
         "sidebar"
-        /* "header" */
         "routes"
         "footer";
     grid-template-rows: auto 0 1fr;
-    /* Sidebar tiene altura 0 por defecto */
-    min-height: 100vh;
 }
 
 header {
@@ -52,10 +48,7 @@ footer {
 
 .ContentSidebar {
     grid-area: sidebar;
-
-    /* Usamos transición para un efecto de apertura suave */
     transition: grid-template-rows 0.3s ease;
-    /*Oculta el contenido de la sidebar */
     overflow: hidden;
 }
 

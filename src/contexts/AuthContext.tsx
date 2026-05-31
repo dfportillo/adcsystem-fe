@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import type { User, UserLoginRespose } from "../api/model";
 import { getUser } from "../api/endpoints/user/user";
 

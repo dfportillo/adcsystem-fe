@@ -33,7 +33,9 @@ export default function AppLayout() {
             openCloseSideBar={openCloseSideBar}
           />
 
-          <section className="OutletAppLayout">
+          <section 
+            className="OutletAppLayout
+            ">
             <header
               className="
                 hidden

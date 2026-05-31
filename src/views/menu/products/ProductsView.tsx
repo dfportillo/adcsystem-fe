@@ -32,7 +32,7 @@ export default function ProductsView() {
     
           <section
             className="
-                    grid place-items-center overflow-y-hidden w-full pb-3
+                    grid overflow-y-hidden w-full pb-3
                     "
           >
             {productsList.length ? (

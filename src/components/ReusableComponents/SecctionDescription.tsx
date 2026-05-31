@@ -26,10 +26,12 @@ children
     <div
       role="banner"
       className="
-                w-[92%] lg:w-2/5 md:w-2/3
-                bg-gray-200
+                w-[92%] lg:w-2/5 
                 px-4 py-3 mx-2 my-2
-                rounded-4xl md:rounded-4xl
+                rounded-4xl 
+                md:rounded-4xl
+                md:w-2/3
+                bg-gray-200
                 lg:p-4
                 lg:m-5
                 "
