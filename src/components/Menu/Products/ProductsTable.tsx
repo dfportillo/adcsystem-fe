@@ -9,7 +9,7 @@ import {
   type SortingState,
 } from "@tanstack/react-table";
 //-----------------------------------------------------------------
-import type { Product } from "../../../api/model";
+import type { Product } from "../../../api_adcsystem/model";
 import { useState } from "react";
 
 type ProductsTableProps = {

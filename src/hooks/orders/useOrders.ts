@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getManufacturing } from "../../api/endpoints/manufacturing/manufacturing";
+import { getManufacturingAPI } from "../../api_adcsystem/endpoints/manufacturing/manufacturing";
 
-const manufacturingApi = getManufacturing();
+const manufacturingApi = getManufacturingAPI();
 
 export const useOrders = () => {
     //---------------- mutaciones -------------

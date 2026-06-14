@@ -7,8 +7,8 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import type { User, UserLoginRespose } from "../api/model";
-import { getUser } from "../api/endpoints/user/user";
+import type { User, UserLoginRespose } from "../api_adcsystem/model";
+import { getUser } from "../api_adcsystem/endpoints/user/user";
 
 const USER_STORAGE_KEY = `user_system`;
 

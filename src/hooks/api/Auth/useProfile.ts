@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../../contexts/AuthContext";
-import type { User } from "../../../api/model";
-import { getUser } from "../../../api/endpoints/user/user";
+import type { User } from "../../../api_adcsystem/model";
+import { getUser } from "../../../api_adcsystem/endpoints/user/user";
 import { isAxiosError } from "axios";
 import { toast } from "sonner";
 

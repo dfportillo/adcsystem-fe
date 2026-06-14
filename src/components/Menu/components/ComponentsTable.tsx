@@ -10,7 +10,7 @@ import {
   type SortingState,
 } from "@tanstack/react-table";
 //----------------------------------------------------------------------------------------
-import type { Component } from "../../../api/model";
+import type { Component } from "../../../api_adcsystem/model";
 
 export type ComponentsTableProps = {
   data: Component[];

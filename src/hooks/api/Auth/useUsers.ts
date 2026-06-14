@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 //----------------------------------------------------------------------------------------
-import { getUser } from "../../../api/endpoints/user/user";
+import { getUser } from "../../../api_adcsystem/endpoints/user/user";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";

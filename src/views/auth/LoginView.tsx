@@ -1,7 +1,7 @@
 import { useState } from "react"; // Importamos useState
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import type { UserLogin } from "../../api/model";
+import type { UserLogin } from "../../api_adcsystem/model";
 import { useUsers } from "../../hooks/api/Auth/useUsers";
 import ErrorMessage from "../../components/ErrorMessage";
 

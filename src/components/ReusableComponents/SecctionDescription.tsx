@@ -5,7 +5,7 @@
  * @param buttonAction accion que realziara el boton
 */
 
-import React, { type PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 
 interface SecctionDescriptionProps extends PropsWithChildren{
     header:string
