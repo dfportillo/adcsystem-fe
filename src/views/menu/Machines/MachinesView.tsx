@@ -3,7 +3,7 @@ import { useWorkstations } from "#hooks/workstations/useWorkStations";
 
 export default function MachinesView() {
 
-  // --------- estado visual de cada 
+  // --------- visual state ac
   const {getWorkstations} = useWorkstations()
 
   console.log(getWorkstations.data)

@@ -1,21 +1,23 @@
 import { Fragment } from "react/jsx-runtime";
 //------------------------------------------------------------
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "#components/ui/accordion";
 import {
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuItems,
-    Transition,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
 } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import type { ProductionOrder } from "../../../api_adcsystem/model";
+import type { Component, ProductionOrder } from "../../../api_adcsystem/model";
 import { useProducts } from "#hooks/products/useProducts";
+import { useComponents } from "#hooks/components/useComponents";
+import { useEffect, useState } from "react";
 
 export type OrdersCardProps = {
   order: ProductionOrder;
@@ -29,11 +31,25 @@ export default function OrdersCards({
   isLast,
 }: OrdersCardProps) {
 
-    const {orderProductsQuery} = useProducts(order.product)
-    // manejo de los componentes que tiene el producto relacionado a la orden
-    const handleGetProductComponents = () => {
-        console.log(`producto relacionado a la orden ${order.code}`,orderProductsQuery.data)
+    const {orderProductQuery} = useProducts(order.product)
+    const [orderComponentsIds,setOrderComponentsIds] = useState<Component['id'][]>([])
+    
+    const {getComponents} = useComponents(orderComponentsIds)
+    // manejo de los componentes que tiene la orden
+    const handleGetOrderComponents = () => {
+      if(!orderProductQuery.data) return
+      const ids = orderProductQuery.data.components.map(c => c.id)
+      setOrderComponentsIds(ids)
     }
+
+    // llegada de los componentes al momento de hacer click
+    useEffect(()=>{
+      if(getComponents.data){
+        console.log(`la OP ${order.code} tiene los siguientes productos relacionados`,getComponents.data)
+      }
+    },[getComponents.data,order.code])
+
+
   return (
     <li
       className={` flex flex-col px-3 border border-gray-300 ${isFirst ? " rounded-t-lg" : isLast ? " rounded-b-lg" : ""} ${isFirst && isLast && " rounded-t-lg rounded-b-lg"}`}
@@ -96,7 +112,7 @@ export default function OrdersCards({
           <AccordionContent>
             <h3 
                 className=" first-letter:capitalize font-semibold"
-                onClick={handleGetProductComponents}
+                onClick={handleGetOrderComponents}
                 >
                 {order.product_name}
             </h3>

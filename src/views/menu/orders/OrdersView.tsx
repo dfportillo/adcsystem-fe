@@ -15,6 +15,7 @@ export default function OrdersView() {
   //------ busqueda de informacion ------------------
   const {ordersQuery} =useOrders()
   const orderList = ordersQuery.data;
+  console.log(orderList)
   // --------- filtrado de OP -----------------------------------
   //? -------- termino a buscar desde la URL ---------------
   const {searchTerm,setSearchTerm} = useSearchURL('q')
