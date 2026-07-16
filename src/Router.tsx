@@ -12,6 +12,8 @@ import OrdersView from "./views/menu/orders/OrdersView";
 import ComponentsView from "./views/menu/components/ComponentsView";
 import ProductsView from "./views/menu/products/ProductsView";
 import MachinesView from "./views/menu/Machines/MachinesView";
+import ProcessView from "./views/menu/process/ProcessView";
+import PersonalView from "./views/menu/personal/PersonalView";
 
 
 export default function Router() {
@@ -26,10 +28,12 @@ export default function Router() {
           <Route element={<AppLayout />}>
             <Route path="/" element={<AdcSystemDashboardView />} index />
             <Route path="/menu" element={<MenuView />}  />
-            <Route path="/menu/components" element={<ComponentsView />}  />
-            <Route path="/menu/products" element={<ProductsView />}  />
-            <Route path="/menu/orders" element={<OrdersView />}  />
-            <Route path="/menu/machines" element={<MachinesView />}  />
+            <Route path="/components" element={<ComponentsView />}  />
+            <Route path="/products" element={<ProductsView />}  />
+            <Route path="/orders" element={<OrdersView />}  />
+            <Route path="/machines" element={<MachinesView />}  />
+            <Route path="/process" element={<ProcessView />}  />
+            <Route path="/personal" element={<PersonalView />}  />
           </Route>
         </Routes>
       </AuthContextProvider>

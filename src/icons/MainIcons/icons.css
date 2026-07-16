@@ -1,0 +1,4 @@
+.turn-white {
+  /* Convierte la imagen a negro y luego le aplica el tono deseado mediante inversión */
+  filter: brightness(0) saturate(100%) invert(100%) sepia(97%) saturate(20%) hue-rotate(358deg) brightness(102%) contrast(105%);
+}

@@ -36,7 +36,6 @@ children
                 lg:m-5
                 "
     >
-      <div className=" flex items-center gap-4">
         <h1
           className=" 
                     text-xl font-black first-letter:capitalize
@@ -45,7 +44,6 @@ children
         >
           {header}
         </h1>
-      </div>
       <p className=" text-xl font-light first-letter:capitalize text-gray-500 mt-3">
         {description}
       </p>

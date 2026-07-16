@@ -7,7 +7,7 @@ import { useState } from "react";
 type TabType = "products" | "materials";
 
 //TODO ---------- temporal para produccion
-const componentsListProv = [
+const componentsListProvExample = [
   {
     "id": 0,
     "name": "string",
@@ -81,7 +81,7 @@ export default function ComponentsView() {
   // manejo de pestañas
   const [activeTab, setActiveTab] = useState<TabType>("products");
   // busqueda de informacion
-  const { getComponentsQuery } = useComponents();
+  const { getComponentsQuery } = useComponents([]);
   const componentsListProv = getComponentsQuery.data || [];
 
   // ----- manejo de informacion--------------

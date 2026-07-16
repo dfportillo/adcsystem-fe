@@ -18,6 +18,7 @@ import type { Component, ProductionOrder } from "../../../api_adcsystem/model";
 import { useProducts } from "#hooks/products/useProducts";
 import { useComponents } from "#hooks/components/useComponents";
 import { useEffect, useState } from "react";
+import { useOrders } from "#hooks/orders/useOrders";
 
 export type OrdersCardProps = {
   order: ProductionOrder;
@@ -33,7 +34,10 @@ export default function OrdersCards({
 
     const {orderProductQuery} = useProducts(order.product)
     const [orderComponentsIds,setOrderComponentsIds] = useState<Component['id'][]>([])
-    
+    const [bodyConfirm,setBodyConfirm] = useState({confirm:true})
+
+    const {productionOrderRealese}=useOrders(order.id,bodyConfirm)
+
     const {getComponents} = useComponents(orderComponentsIds)
     // manejo de los componentes que tiene la orden
     const handleGetOrderComponents = () => {
@@ -49,6 +53,13 @@ export default function OrdersCards({
       }
     },[getComponents.data,order.code])
 
+    // realese product
+    const handleReleaseOrder = () => {
+      console.log('click para liberar orden')
+      console.log(bodyConfirm)
+      productionOrderRealese.mutate()
+
+    }
 
   return (
     <li
@@ -66,6 +77,9 @@ export default function OrdersCards({
                 OP {order.code}
               </h1>
             </AccordionTrigger>
+            <button className=" border-2 bg-blue-500 rounded-3xl w-xl hover:cursor-pointer"
+            onClick={handleReleaseOrder}
+            > liberar orden </button>
             <Menu as="div" className="relative flex-none">
               <MenuButton className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900 hover:cursor-pointer">
                 <span className="sr-only">opciones</span>

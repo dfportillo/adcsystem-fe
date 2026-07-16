@@ -825,10 +825,16 @@ export const getManufacturingAPI = () => {
       data: productionOrderCreate,
     });
   };
-  const manufacturingProductionReleaseCreate = (id: number) => {
+
+  type releaseBodyData = {
+    confirm:boolean
+  }
+
+  const manufacturingProductionReleaseCreate = (id: number,bodyData:releaseBodyData) => {
     return customAxios<void>({
       url: `/api/manufacturing/production/${id}/release/`,
       method: "POST",
+      data:bodyData
     });
   };
   const manufacturingProductionBatchLinksList = () => {

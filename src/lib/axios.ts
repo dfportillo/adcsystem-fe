@@ -35,6 +35,7 @@ customInstace.interceptors.response.use(
             "no hay token de refresh necesario iniciar sesion otra vez",
           );
         }
+
         const response = await axios.post(
           `${import.meta.env.VITE_BASE_URL}/api/user/token/refresh/`,
           {
@@ -47,13 +48,17 @@ customInstace.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
 
         return customInstace(originalRequest)
-      } catch (error) {
-        console.error(error, "tokens expirados");
+      } catch (refreshErrors) {
+        console.error(refreshErrors, "tokens expirados");
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
+
+        return Promise.reject(error);
       }
     }
-  },
+
+    return Promise.reject(error)
+  }
 );
 
 export const customAxios = async <T>(
@@ -64,6 +69,8 @@ export const customAxios = async <T>(
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      // 💡 TIP DE DEBBUGING: Esto te dirá en la consola exactamente qué opina Django del error (Ej: campos inválidos)
+      console.error("Error en petición HTTP:", error.response?.data || error.message);
       throw error;
     }
     throw new Error("error en el Axios customizado");

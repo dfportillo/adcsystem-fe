@@ -27,6 +27,36 @@ export const LinksArraySideBar: LinksArraySideBarTypes[] = [
     to: "/menu",
   },
   {
+    label: "componentes", // se manitiene
+    icon: <ComponentsIcon />,
+    to: "/components",
+  },
+  {
+    label: "productos", // nueva
+    icon: <ProductsIcon />,
+    to: "/products",
+  },
+  {
+    label: "ordenes de produccion", // se mantiene
+    icon: <PolinICon />,
+    to: "/orders",
+  },
+  {
+    label: "maquinas", // se mantiene
+    icon: <CNCIcon />,
+    to: "/machines",
+  },
+  {
+    label: "procesos", // se mantiene
+    icon: <ProcessIcon />,
+    to: "process",
+  },
+  {
+    label: "personal",
+    icon: <PersonalIcon />,
+    to: "personal",
+  },
+  {
     label: "Perfil Usuario",
     icon: <ProfileIcon />,
     to: "/profile",
